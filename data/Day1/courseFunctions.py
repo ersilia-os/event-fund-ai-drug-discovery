@@ -9,21 +9,25 @@ from matplotlib.lines import Line2D
 import numpy as np
 import csv
 
-colours = ['k', '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+colours = ['k', 'r', 'b', '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
 
-def get_PCA(PATH, FILES):
-    dfs_with_colours = _set_colours(PATH, FILES)
-    smiles, colours = _standardize_smiles(dfs_with_colours)
-    labels = _get_labels(FILES)
-    pca = _calc_PCA(smiles)
-    return plot_map(np.transpose(pca)[0], np.transpose(pca)[1], colours, labels)
+class plots:
+    def __init__(self, PATH, FILES):
+        self.smiles, self.data_colours, self.labels = setup_data(PATH, FILES)
+        self.pca = _calc_PCA(self.smiles)
+        self.umap = _calc_UMAP(self.smiles)
 
-def get_UMAP(PATH, FILES):
+    def plot_pca(self):
+        plot_map(np.transpose(self.pca)[0], np.transpose(self.pca)[1], self.data_colours, self.labels)
+
+    def plot_umap(self):
+        plot_map(np.transpose(self.umap)[0], np.transpose(self.umap)[1], self.data_colours, self.labels)
+
+def setup_data(PATH, FILES):
     dfs_with_colours = _set_colours(PATH, FILES)
-    smiles, colours = _standardize_smiles(dfs_with_colours)
+    smiles, data_colours = _standardize_smiles(dfs_with_colours)
     labels = _get_labels(FILES)
-    umap = _calc_UMAP(smiles)
-    return plot_map(np.transpose(umap)[0], np.transpose(umap)[1], colours, labels)
+    return smiles, data_colours, labels
 
 def _set_colours(PATH, FILES):
     smiles_dfs = _get_dfs(PATH, FILES)
@@ -91,9 +95,9 @@ def plot_map(X, y, colours, labels):
     plt.ylabel ("Dimension 2",fontsize=14,fontweight='bold')
 
     legend_elements = [Line2D([0], [0], marker='.', color= 'w', label=l, markerfacecolor=colours[i], markersize=10) for i, l in enumerate(labels)]
-    #plt.legend(handles=legend_elements, frameon=False)
+    plt.legend(handles=legend_elements, frameon=False)
 
     plt.tick_params ('both',width=2,labelsize=12)
     plt.tight_layout()
-    return plt
+    plt.show()
 
