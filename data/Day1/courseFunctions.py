@@ -44,9 +44,9 @@ def _get_dfs(PATH, FILES):
     smiles_df_list = [df[["Smiles"]] for df in dataframes]
     return smiles_df_list
 
-def _find_separator(df):
-    with open(df, 'r') as csvfile:
-        delimiter = csv.Sniffer().sniff(csvfile.read(1024), delimiters=";,")
+def _find_separator(file_path):
+    with open(file_path, 'r') as csvfile:
+        delimiter = csv.Sniffer().sniff(csvfile.read(1024))
         return delimiter
 
 def _standardize_smiles(df_list):
