@@ -54,8 +54,11 @@ def _get_dfs(PATH, FILES):
 
 def _find_separator(file_path):
     with open(file_path, 'r') as csvfile:
-        delimiter = csv.Sniffer().sniff(csvfile.read(1024)).delimiter
-        return delimiter
+        try:
+            delimiter = csv.Sniffer().sniff(csvfile.read(1024), delimiters=[',', ';']).delimiter
+            return delimiter
+        except:
+            return ','
 
 def _standardize_smiles(df_list):
     combined_df = pd.concat(df_list)
@@ -85,16 +88,18 @@ def _calc_UMAP(smiles):
     umap_transformer = umap.UMAP(n_neighbors=15, min_dist=0.8)
     return umap_transformer.fit_transform(smiles)
 
-def plot_map(X, y, colours, labels):
+def plot_map(X, y, data_colours, labels):
     plt.clf()
     fig = plt.figure()
 
-    plt.scatter(X, y, color = colours, s = 5)
+    plt.scatter(X, y, color = data_colours, s = 5)
     #plt.title (title,fontsize=14,fontweight='bold',family='sans-serif')
     plt.xlabel ("Dimension 1",fontsize=14,fontweight='bold')
     plt.ylabel ("Dimension 2",fontsize=14,fontweight='bold')
 
-    legend_elements = [Line2D([0], [0], marker='.', color= 'w', label=l, markerfacecolor=colours[i], markersize=10) for i, l in enumerate(labels)]
+    legend_elements = []
+    for i, l in enumerate(labels):
+        legend_elements.append(Line2D([0], [0], marker='.', color='w', label=l, markerfacecolor=colours[i], markersize=10))
     plt.legend(handles=legend_elements, frameon=False)
 
     plt.tick_params ('both',width=2,labelsize=12)
