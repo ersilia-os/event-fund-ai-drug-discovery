@@ -38,7 +38,11 @@ def _set_colours(PATH, FILES):
 
 def _get_dfs(PATH, FILES):
     dataframes = []
-    for f in FILES:
+    files_list = FILES
+    if type(FILES) != list:
+        files_list = [FILES]
+
+    for f in files_list:
         file_path = os.path.join(PATH, f)
         dataframes.append(pd.read_csv(file_path, sep=_find_separator(file_path)))
     smiles_df_list = [df[["Smiles"]] for df in dataframes]
@@ -46,7 +50,7 @@ def _get_dfs(PATH, FILES):
 
 def _find_separator(file_path):
     with open(file_path, 'r') as csvfile:
-        delimiter = csv.Sniffer().sniff(csvfile.read(1024))
+        delimiter = csv.Sniffer().sniff(csvfile.read(1024)).delimiter
         return delimiter
 
 def _standardize_smiles(df_list):
@@ -87,7 +91,7 @@ def plot_map(X, y, colours, labels):
     plt.ylabel ("Dimension 2",fontsize=14,fontweight='bold')
 
     legend_elements = [Line2D([0], [0], marker='.', color= 'w', label=l, markerfacecolor=colours[i], markersize=10) for i, l in enumerate(labels)]
-    ax.legend(handles=legend_elements, frameon=False)
+    #plt.legend(handles=legend_elements, frameon=False)
 
     plt.tick_params ('both',width=2,labelsize=12)
     plt.tight_layout()
