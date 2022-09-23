@@ -17,7 +17,7 @@ You can read more in detail about the event on the [documentation](https://ersil
 * presentations: slides corresponding to the different sessions.
 
 ## License
-The content of this repository is licensed under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) Creative Commons license.
+The content of this repository is licensed under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) Creative Commons license, and the code is licensed under a GPLv3 license.
 
 ## Event Organisers
 This workshop has been crafted and developed by the [H3D Foundation](https://h3dfoundation.org/) and the [Ersilia Open Source Initiative](https://ersilia.io).
