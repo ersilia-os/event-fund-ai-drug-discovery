@@ -6,7 +6,7 @@ The workshop is a 4-day hands on training. Each day is a session on the followin
 * Session 1: Introduction to Drug Discovery
 * Session 2: AI/ML for drug discovery
 * Session 3: ADMET and Pharmacokinetics 
-* Session4: Open Source and Open Science
+* Session 4: Open Source and Open Science
 and is comprised of 4 activities: Keynote session, Skills development, Breakout activity and group discussion.
 
 You can read more in detail about the event on the [documentation](https://ersilia.gitbook.io/event-fund/).
