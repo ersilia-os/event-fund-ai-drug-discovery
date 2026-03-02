@@ -1,4 +1,4 @@
-# event-fund-ai-drug-discovery
+# Event Fund AI for Drug Discovery
 This repository contains the code and data to participate in the workshop: "Bringing data science and AI/ML tools to infectious disease research"
 
 ## Summary
